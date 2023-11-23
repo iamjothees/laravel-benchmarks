@@ -1,0 +1,30 @@
+version: '1'
+services:
+  app:
+    image: 'bitnami/laravel'
+    ports: 
+      - '8000:8000'
+    working_dir: /app
+    volumes:
+      - './app:/app'
+    environment:
+    - DB_HOST=mysql
+    - DB_PORT=3306
+    - DB_DATABASE=benchmarks
+    - DB_USERNAME=joe
+    - DB_PASSWORD=benchmarks
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+
+
+  mysql:
+    image: mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=benchmarks
+    - MYSQL_DATABASE=benchmarks
+    - MYSQL_USER=joe
+    - MYSQL_PASSWORD=benchmarks
+    ports:
+      - '3306:3306'
+    volumes:
+      - './db_data:/var/lib/mysql'
